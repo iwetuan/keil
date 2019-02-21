@@ -6,8 +6,8 @@
 #define SYSCLK	11059200UL
 //#define SYSCLK	12000000UL
 
-#define _TH0(ms)	(((65536-(int)(ms/1000.0/12*SYSCLK)&0xFF00)) >>8)
-#define _TL0(ms)  	(((65536-(int)(ms/1000.0/12*SYSCLK)&0x00FF)) >>0)
+#define _TH0(ms)	(((65536-(ms*SYSCLK/1000/12)&0xFF00)) >>8)
+#define _TL0(ms)  	(((65536-(ms*SYSCLK/1000/12)&0x00FF)) >>0)
 
 
 void initTime0(){
@@ -51,9 +51,9 @@ int main(){
 	for(;;){
 			
 			P1 = 0x00;
-			delayMS(100);
+			delayMS(50);
 			P1 = 0xFF;
-			delayMS(100);	
+			delayMS(50);	
 	}
 	return 0;
 }
